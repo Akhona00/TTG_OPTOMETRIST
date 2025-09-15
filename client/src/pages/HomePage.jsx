@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./home.css";
 import {
   FaEye,
@@ -8,16 +8,9 @@ import {
   FaBuilding,
   FaFacebookF,
   FaInstagram,
-  FaYoutube,
-  FaLinkedinIn,
   FaWhatsapp,
-  FaTiktok,
 } from "react-icons/fa";
 
-// FontAwesome CDN is not needed in JSX if you use a library like react-icons or @fortawesome/react-fontawesome,
-// but for static HTML you can still rely on the link in public/index.html.
-
-// Images should be imported or referenced from the public folder.
 const images = [
   "/TTP_images/image2.jpeg",
   "/TTP_images/image3.jpeg",
@@ -32,7 +25,7 @@ const images = [
   "/TTP_images/image7.jpeg",
   "/TTP_images/image8.jpeg",
   "/TTP_images/image9.jpeg",
-  "/TTP_images/image10.jpeg", // duplicate
+  "/TTP_images/image10.jpeg",
   "/TTP_images/image2.jpeg",
   "/TTP_images/image3.jpeg",
   "/TTP_images/image10.jpeg",
@@ -146,7 +139,7 @@ const packages = {
   },
   pensioner: [
     {
-      image: "/TTP_images/=image2.jpeg",
+      image: "/TTP_images/image2.jpeg",
       title: "Single Vision",
       price: "R899",
       items: [
@@ -224,13 +217,12 @@ const packages = {
 
 function HomePage() {
   const sliderRef = useRef(null);
+  const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
-    // Auto-update year
     const yearSpan = document.getElementById("year");
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // Enable click + drag scrolling for services slider
     const slider = sliderRef.current;
     let isDown = false;
     let startX;
@@ -244,27 +236,23 @@ function HomePage() {
         scrollLeft = slider.scrollLeft;
         slider.style.cursor = "grabbing";
       });
-
       slider.addEventListener("mouseleave", () => {
         isDown = false;
         slider.style.cursor = "grab";
       });
-
       slider.addEventListener("mouseup", () => {
         isDown = false;
         slider.style.cursor = "grab";
       });
-
       slider.addEventListener("mousemove", (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // scroll speed
+        const walk = (x - startX) * 2;
         slider.scrollLeft = scrollLeft - walk;
       });
     }
 
-    // Smooth scroll for navigation links
     const navLinks = document.querySelectorAll('a[href^="#"]');
     navLinks.forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
@@ -276,7 +264,6 @@ function HomePage() {
       });
     });
 
-    // Intersection Observer for animations
     const observer = new window.IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -289,7 +276,6 @@ function HomePage() {
       observer.observe(el);
     });
 
-    // Cleanup listeners on unmount
     return () => {
       if (slider) {
         slider.removeEventListener("mousedown", () => {});
@@ -300,15 +286,91 @@ function HomePage() {
     };
   }, []);
 
-  // Form submission handler
   const handleFormSubmit = (e) => {
     e.preventDefault();
     alert("Thank you for your submission! We will contact you soon.");
   };
 
-  // Social icons can be replaced with react-icons if desired.
   return (
     <div>
+      {/* Popup Modal */}
+      {showPopup && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 9999,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.6)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: 24,
+              borderRadius: 16,
+              boxShadow: "0 4px 32px rgba(0,0,0,0.25)",
+              position: "relative",
+              maxWidth: 350,
+              textAlign: "center",
+              animation: "fadeIn 0.5s",
+            }}
+          >
+            <button
+              onClick={() => setShowPopup(false)}
+              style={{
+                position: "absolute",
+                top: 12,
+                right: 12,
+                background: "transparent",
+                border: "none",
+                fontSize: 20,
+                cursor: "pointer",
+                color: "#888",
+              }}
+              aria-label="Close sale popup"
+            >
+              ×
+            </button>
+            {/* Sale Banner */}
+            <img
+              src="/TTP_images/sale.jpeg"
+              alt="Special Sale"
+              style={{
+                width: "100%",
+                maxWidth: 300,
+                borderRadius: 10,
+                marginBottom: 16,
+              }}
+            />
+            <p>
+              Book your appointment now!
+            </p>
+            <a
+              href="#appointment"
+              className="btn"
+              style={{
+                marginTop: 14,
+                background: "#e74c3c",
+                color: "#fff",
+                borderRadius: 6,
+                padding: "8px 16px",
+                textDecoration: "none",
+                display: "inline-block",
+              }}
+              onClick={() => setShowPopup(false)}
+            >
+              Book Now
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* Navbar */}
       <nav>
         <h1>TTG Optometrist</h1>
@@ -343,7 +405,7 @@ function HomePage() {
               <span className="highlight">Never Before</span>
             </h2>
             <p>
-              eye care solutions tailored for you. From comprehensive
+              Eye care solutions tailored for you. From comprehensive
               examinations to cutting-edge virtual try-on technology, we're
               revolutionizing eye care in Midrand.
             </p>
@@ -352,7 +414,7 @@ function HomePage() {
             </a>
           </div>
           <div className="hero-image">
-            <img src="TTP_images/logo.jpeg" alt="Logo" />
+            <img src="/TTP_images/logo.jpeg" alt="Logo" />
           </div>
         </div>
       </section>
@@ -407,7 +469,7 @@ function HomePage() {
         <div className="services-slider" ref={sliderRef}>
           {serviceCards.map((card, i) => (
             <div className="card" key={i}>
-              <i className={`fas ${card.icon}`}></i>
+              <span className="icon">{iconMap[card.icon]}</span>
               <h4>{card.title}</h4>
               <p>{card.desc}</p>
               <ul>
@@ -605,7 +667,7 @@ function HomePage() {
       {/* Footer */}
       <footer>
         <div className="footer-logo">
-          <img src="TTP_images/logo.jpeg" alt="Logo" />
+          <img src="/TTP_images/logo.jpeg" alt="Logo" />
         </div>
         <div className="footer-disc">
           <p>
@@ -647,24 +709,15 @@ function HomePage() {
         <div className="footer-contact">
           <h4 style={{ color: "#3498db", marginBottom: 15 }}>Contact Info</h4>
           <p>
-            <i
-              className="fas fa-map-marker-alt"
-              style={{ color: "#3498db", marginRight: 8 }}
-            ></i>
-            9 Acacia Street Ebony Park, Johannesburg, 1632 South Africa
+            <span style={{ color: "#3498db", marginRight: 8 }}>📍</span>9 Acacia
+            Street Ebony Park, Johannesburg, 1632 South Africa
           </p>
           <p>
-            <i
-              className="fas fa-phone"
-              style={{ color: "#3498db", marginRight: 8 }}
-            ></i>
+            <span style={{ color: "#3498db", marginRight: 8 }}>📞</span>
             067 100 4687
           </p>
           <p>
-            <i
-              className="fas fa-envelope"
-              style={{ color: "#3498db", marginRight: 8 }}
-            ></i>
+            <span style={{ color: "#3498db", marginRight: 8 }}>✉️</span>
             thandekaiservices@gmail.com
           </p>
         </div>

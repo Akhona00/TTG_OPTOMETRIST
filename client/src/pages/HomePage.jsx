@@ -614,26 +614,20 @@ function HomePage() {
           </p>
         </div>
         <div className="footer-social">
-          <a href="#" title="Facebook">
+          <a href="https://web.facebook.com/TTGOPTOMETRIST" title="Facebook">
             <FaFacebookF />
           </a>
-          <a href="#" title="Instagram">
+          <a
+            href="https://www.instagram.com/ttgoptometristsa"
+            title="Instagram"
+          >
             <FaInstagram />
-          </a>
-          <a href="#" title="YouTube">
-            <FaYoutube />
-          </a>
-          <a href="#" title="LinkedIn">
-            <FaLinkedinIn />
           </a>
           <a
             href="https://api.whatsapp.com/send/?phone=27671004687"
             title="WhatsApp"
           >
             <FaWhatsapp />
-          </a>
-          <a href="#" title="TikTok">
-            <FaTiktok />
           </a>
         </div>
         <div className="fopter-links">

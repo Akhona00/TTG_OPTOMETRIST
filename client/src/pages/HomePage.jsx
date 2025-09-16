@@ -9,7 +9,11 @@ import {
   FaFacebookF,
   FaInstagram,
   FaWhatsapp,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaClock
 } from "react-icons/fa";
+
 
 const images = [
   "/TTP_images/image2.jpeg",
@@ -139,7 +143,7 @@ const packages = {
   },
   pensioner: [
     {
-      image: "/TTP_images/image2.jpeg",
+      image: "/TTP_images/=image2.jpeg",
       title: "Single Vision",
       price: "R899",
       items: [
@@ -215,9 +219,11 @@ const packages = {
   ],
 };
 
+
 function HomePage() {
   const sliderRef = useRef(null);
   const [showPopup, setShowPopup] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const yearSpan = document.getElementById("year");
@@ -312,26 +318,28 @@ function HomePage() {
           <div
             style={{
               background: "#fff",
-              padding: 24,
-              borderRadius: 16,
-              boxShadow: "0 4px 32px rgba(0,0,0,0.25)",
+              padding: "1.2rem 0.8rem 1.5rem 0.8rem",
+              borderRadius: 13,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
               position: "relative",
-              maxWidth: 350,
+              maxWidth: 250,
+              width: "95vw",
               textAlign: "center",
-              animation: "fadeIn 0.5s",
+              animation: "fadeIn 0.3s",
             }}
           >
             <button
               onClick={() => setShowPopup(false)}
               style={{
                 position: "absolute",
-                top: 12,
-                right: 12,
+                top: 8,
+                right: 10,
                 background: "transparent",
                 border: "none",
-                fontSize: 20,
+                fontSize: 18,
                 cursor: "pointer",
                 color: "#888",
+                padding: 0,
               }}
               aria-label="Close sale popup"
             >
@@ -342,26 +350,28 @@ function HomePage() {
               src="/TTP_images/sale.jpeg"
               alt="Special Sale"
               style={{
-                width: "100%",
-                maxWidth: 300,
-                borderRadius: 10,
-                marginBottom: 16,
+                width: "92%",
+                maxWidth: 190,
+                borderRadius: 8,
+                margin: "0 auto 10px auto",
+                display: "block",
               }}
             />
-            <p>
+            <p style={{ fontSize: "1rem", marginBottom: 8, color: "#222" }}>
               Book your appointment now!
             </p>
             <a
               href="#appointment"
               className="btn"
               style={{
-                marginTop: 14,
+                marginTop: 8,
                 background: "#e74c3c",
                 color: "#fff",
                 borderRadius: 6,
-                padding: "8px 16px",
+                padding: "7px 14px",
                 textDecoration: "none",
                 display: "inline-block",
+                fontSize: "0.95rem",
               }}
               onClick={() => setShowPopup(false)}
             >
@@ -592,26 +602,35 @@ function HomePage() {
             Ready to experience exceptional eye care? Contact us today to
             schedule your appointment or learn more about our services.
           </p>
-          <div className="address">
-            <p>
+          <div className="contact-row">
+            <FaBuilding className="contact-icon" />
+            <div>
               <strong>Visit Our Clinic</strong>
-            </p>
-            <p>9 Acacia Street Ebony Park, Johannesburg, 1632 South Africa</p>
+              <p>9 Acacia Street Ebony Park, Johannesburg, 1632 South Africa</p>
+            </div>
           </div>
-          <div className="phone">
-            <p>
+          <div className="contact-row">
+            <FaPhoneAlt className="contact-icon" />
+            <div>
               <strong>Call Us</strong>
-            </p>
-            <p>067 100 4687</p>
-            <p>Emergency: 067 100 4687</p>
+              <p>067 100 4687</p>
+            </div>
           </div>
-          <div className="opening-hours">
-            <p>
+          <div className="contact-row">
+            <FaEnvelope className="contact-icon" />
+            <div>
+              <strong>Email</strong>
+              <p>thandekaiservices@gmail.com</p>
+            </div>
+          </div>
+          <div className="contact-row">
+            <FaClock className="contact-icon" />
+            <div>
               <strong>Opening Hours</strong>
-            </p>
-            <p>Mon-Fri: 09h00 - 17h00</p>
-            <p>Sat: 09h00 - 15h00</p>
-            <p>Sun: Closed</p>
+              <p>Mon-Fri: 09h00 - 17h00</p>
+              <p>Sat: 09h00 - 15h00</p>
+              <p>Sun: Closed</p>
+            </div>
           </div>
         </div>
         <div className="send-message">
@@ -638,18 +657,75 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Appointment */}
-      <section id="appointment">
-        <h3>Book an Appointment</h3>
-        <p>Schedule your consultation with our specialists today.</p>
-        <form onSubmit={handleFormSubmit}>
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
-          <input type="tel" placeholder="Phone Number" required />
-          <input type="date" required />
-          <button type="submit">Confirm Appointment</button>
-        </form>
-      </section>
+      <>
+        {/* Appointment Section */}
+        <section id="appointment">
+          <h3>Book an Appointment</h3>
+          <p>Schedule your consultation with our specialists today.</p>
+
+          <div className="appointment-buttons">
+            <button onClick={() => setShowModal(true)}>Book Appointment</button>
+            <a
+              href="https://api.whatsapp.com/send?phone=27671004687&text=Hi%20I%20would%20like%20to%20book%20an%20appointment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whatsapp-btn"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
+        </section>
+
+        {/* Popup Modal */}
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <h3>Book Your Appointment</h3>
+              <p>
+                Schedule your eye examination with our experienced optometrists.
+                We'll contact you to confirm your preferred time.
+              </p>
+
+              <form onSubmit={handleFormSubmit}>
+                <h4>Personal Information</h4>
+                <input type="text" placeholder="First Name *" required />
+                <input type="text" placeholder="Last Name *" required />
+                <input type="email" placeholder="Email *" required />
+                <input type="tel" placeholder="Phone *" required />
+
+                <h4>Appointment Details</h4>
+                <input type="date" placeholder="Preferred Date *" required />
+                <input type="time" placeholder="Preferred Time *" required />
+                <select required>
+                  <option value="">Select a Service</option>
+                  <option value="eye-exam">Eye Examination</option>
+                  <option value="contact-lenses">Contact Lens Fitting</option>
+                  <option value="glasses">Glasses Prescription</option>
+                  <option value="pediatric">Pediatric Eye Care</option>
+                  <option value="other">Other</option>
+                </select>
+                <textarea
+                  rows="4"
+                  placeholder="Any specific concerns, symptoms, or questions..."
+                ></textarea>
+
+                <div className="modal-buttons">
+                  <button type="submit" className="confirm">
+                    Book Appointment
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </>
 
       <div style={{ width: "100%", height: "400px" }}>
         <iframe
@@ -666,66 +742,85 @@ function HomePage() {
 
       {/* Footer */}
       <footer>
-        <div className="footer-logo">
-          <img src="/TTP_images/logo.jpeg" alt="Logo" />
+        <div className="footer-container">
+          {/* Logo + About */}
+          <div>
+            <div className="footer-logo">
+              <img src="/TTP_images/logo.jpeg" alt="Logo" />
+            </div>
+            <p className="footer-disc">
+              Experience vision like never before. Advanced eye care solutions
+              tailored for you in the heart of Midrand.
+            </p>
+            <div className="footer-social">
+              <a
+                href="https://web.facebook.com/TTGOPTOMETRIST"
+                title="Facebook"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href="https://www.instagram.com/ttgoptometristsa"
+                title="Instagram"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://api.whatsapp.com/send/?phone=27671004687"
+                title="WhatsApp"
+              >
+                <FaWhatsapp />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="footer-title">Quick Links</h4>
+            <div className="footer-links">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#services">Services</a>
+              <a href="#products">Products</a>
+              <a href="#contact-section">Contact</a>
+            </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="footer-title">Our Services</h4>
+            <div className="footer-services">
+              <a href="#services">Full Eye Test</a>
+              <a href="#services">Contact Lens Exam</a>
+              <a href="#services">Driver's Test</a>
+              <a href="#services">Pediatric Care</a>
+              <a href="#services">Corporate Services</a>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="footer-title">Contact Info</h4>
+            <div className="footer-contact">
+              <p>
+                <FaBuilding>
+                  9 Acacia Street Ebony Park, Johannesburg, 1632 South Africa
+                </FaBuilding>{" "}
+                9 Acacia Street Ebony Park, Johannesburg, 1632 South Africa
+              </p>
+              <p>
+                <FaPhoneAlt /> 067 100 4687
+              </p>
+              <p>
+                <FaEnvelope /> thandekaiservices@gmail.com
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="footer-disc">
-          <p>
-            Experience vision like never before. Advanced eye care solutions
-            tailored for you in the heart of Midrand.
-          </p>
-        </div>
-        <div className="footer-social">
-          <a href="https://web.facebook.com/TTGOPTOMETRIST" title="Facebook">
-            <FaFacebookF />
-          </a>
-          <a
-            href="https://www.instagram.com/ttgoptometristsa"
-            title="Instagram"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="https://api.whatsapp.com/send/?phone=27671004687"
-            title="WhatsApp"
-          >
-            <FaWhatsapp />
-          </a>
-        </div>
-        <div className="fopter-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#products">Products</a>
-          <a href="#contact-section">Contact</a>
-        </div>
-        <div className="footer-services">
-          <a href="#services">Full Eye Test</a>
-          <a href="#services">Contact Lens Exam</a>
-          <a href="#services">Driver's Test</a>
-          <a href="#services">Pediatric Care</a>
-          <a href="#services">Corporate Services</a>
-        </div>
-        <div className="footer-contact">
-          <h4 style={{ color: "#3498db", marginBottom: 15 }}>Contact Info</h4>
-          <p>
-            <span style={{ color: "#3498db", marginRight: 8 }}>📍</span>9 Acacia
-            Street Ebony Park, Johannesburg, 1632 South Africa
-          </p>
-          <p>
-            <span style={{ color: "#3498db", marginRight: 8 }}>📞</span>
-            067 100 4687
-          </p>
-          <p>
-            <span style={{ color: "#3498db", marginRight: 8 }}>✉️</span>
-            thandekaiservices@gmail.com
-          </p>
-        </div>
-        <div className="footer-copy">
-          <p>
-            &copy; <span id="year">2025</span> TTG Optometrist. All rights
-            reserved.
-          </p>
+
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <p>&copy; 2025 TTG Optometrist. All rights reserved.</p>
         </div>
       </footer>
     </div>

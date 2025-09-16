@@ -12,7 +12,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Navbar */
+
 nav {
   position: fixed;
   top: 0;
@@ -68,7 +68,7 @@ nav ul li a:hover {
   box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
-/* Hero Section */
+
 #home {
   padding: 100px 5% 60px;
   background: #ffffff 100%;
@@ -154,7 +154,7 @@ nav ul li a:hover {
   }
 }
 
-/* Section Styling */
+
 section {
   padding: 5rem 5%;
   max-width: 1200px;
@@ -193,7 +193,7 @@ section p {
   margin-right: auto;
 }
 
-/* About Section */
+
 .about-section {
   position: relative;
   width: 100%;
@@ -207,7 +207,7 @@ section p {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Overlay hidden by default */
+
 .about-overlay {
   position: absolute;
   inset: 0;
@@ -222,12 +222,12 @@ section p {
   text-align: center;
 }
 
-/* Show overlay on hover */
+
 .about-section:hover .about-overlay {
   opacity: 1;
 }
 
-/* Headings and text */
+
 .about-overlay h3 {
   font-size: 26px;
   margin-bottom: 15px;
@@ -261,12 +261,13 @@ section p {
   font-size: 18px;
 }
 
-/* Services Grid */
+
 #services {
   background: #f8f9fa;
   padding: 80px 20px;
   text-align: center;
 }
+
 
 .services-slider {
   display: flex;
@@ -307,10 +308,22 @@ section p {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.card i {
-  font-size: 3rem;
+.card .icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.15);
   color: #3498db;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 20px; 
+}
+
+.card .icon:hover {
+  color: #2980b9;       
+  transform: scale(1.1); 
 }
 
 .card h4 {
@@ -344,11 +357,25 @@ section p {
   margin-right: 8px;
 }
 
-/* Products Section */
+
 #products {
   padding: 80px 20px;
   text-align: center;
   background: #ffffff;
+}
+
+#products .btn{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #3498db;
+  color: #ffffff;
 }
 
 .package {
@@ -431,7 +458,7 @@ section p {
   color: #2c3e50;
 }
 
-/* Portfolio Section */
+
 #portfolio {
   background: #f8f9fa;
   padding: 80px 20px;
@@ -478,7 +505,7 @@ section p {
   animation-play-state: paused;
 }
 
-/* Testimonials */
+
 #testimonials {
   padding: 80px 20px;
   text-align: center;
@@ -523,7 +550,7 @@ section p {
   font-size: 1rem;
 }
 
-/* Contact Section */
+
 #contact-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -538,27 +565,43 @@ section p {
 .send-message h3 {
   color: #2c3e50;
   margin-bottom: 20px;
-  font-size: 1.8rem;
+  font-size: 20px;
 }
 
-.contact-info div {
-  margin: 30px 0;
-  padding: 20px;
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 16px 18px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px #3498db15;
+  border-left: 4px solid #3498db;
 }
-
-.contact-info strong {
+.contact-icon {
+  font-size: 1.8rem;
   color: #3498db;
-  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
-
+.contact-row strong {
+  font-size: 1.02rem;
+  color: #3498db;
+  margin-bottom: 2px;
+  display: block;
+}
+.contact-row p {
+  margin: 2px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
 .send-message form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 
 .send-message input,
 .send-message select,
@@ -598,151 +641,299 @@ section p {
   transform: translateY(-2px);
 }
 
-/* Appointment Section */
-#appointment {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-  border-radius: 20px;
-  margin: 60px auto;
-  padding: 60px;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }
 
-#appointment h3 {
-  color: white;
+
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal h3 {
+  font-size: 1.6rem;
+  color: #3498db;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modal p {
+  color: #555;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-#appointment form {
+
+.modal form {
   display: grid;
   gap: 1rem;
-  max-width: 600px;
-  margin: 2rem auto 0;
 }
 
-#appointment form input {
-  padding: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+.modal form input,
+.modal form select,
+.modal form textarea {
+  padding: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
+  width: 100%;
   transition: all 0.3s ease;
 }
 
-#appointment form input::placeholder {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-#appointment form input:focus {
+.modal form input:focus,
+.modal form select:focus,
+.modal form textarea:focus {
+  border-color: #3498db;
   outline: none;
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
 }
 
-#appointment form button {
-  background: #ffffff;
-  color: #3498db;
-  padding: 1rem 2rem;
+.modal form textarea {
+  resize: vertical;
+}
+
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-buttons .confirm {
+  background: #3498db;
+  color: white;
+  padding: 0.9rem 1.5rem;
   border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-buttons .confirm:hover {
+  background: #2980b9;
+}
+
+.modal-buttons .cancel {
+  background: #e74c3c;
+  color: white;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-buttons .cancel:hover {
+  background: #c0392b;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.appointment-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 20px;
+}
+
+.appointment-buttons button,
+.appointment-buttons .whatsapp-btn {
+  padding: 1rem 1.8rem;
   border-radius: 10px;
+  border: none;
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-#appointment form button:hover {
-  background: #ecf0f1;
-  transform: translateY(-2px);
+.appointment-buttons button {
+  background: #3498db;
+  color: #fff;
 }
 
-/* Footer */
-footer {
-  background: #2c3e50;
-  color: white;
-  padding: 60px 5% 30px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
+.appointment-buttons button:hover {
+  background: #2980b9;
 }
+
+
+ .whatsapp-btn {
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.appointment-buttons .whatsapp-btn:hover {
+  background: #1ebe57;
+}
+
+
+footer {
+  background: #1a252f;
+  color: #ecf0f1;
+  padding: 60px 5% 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
 
 .footer-logo img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 20px;
+  width: 200px;
+  border-radius: 10%;
+  margin-bottom: 15px;
 }
 
 .footer-disc {
   color: #bdc3c7;
   line-height: 1.6;
+  font-size: 0.95rem;
 }
+
+.footer-title {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #3498db;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+.footer-links,
+.footer-services {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a,
+.footer-services a {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover,
+.footer-services a:hover {
+  color: #3498db;
+  transform: translateX(5px);
+}
+
 
 .footer-social {
   display: flex;
-  gap: 15px;
-  align-items: center;
-  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .footer-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
+  margin-top: 40px;
+  width: 42px;
+  height: 42px;
   background: #3498db;
   border-radius: 50%;
   color: white;
-  text-decoration: none;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
-  font-size: 1.2rem;
 }
 
 .footer-social a:hover {
   background: #2980b9;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-}
-
-.fopter-links,
-.footer-services {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.fopter-links a,
-.footer-services a {
-  color: #bdc3c7;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 5px 0;
-}
-
-.fopter-links a:hover,
-.footer-services a:hover {
-  color: #3498db;
-  padding-left: 10px;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .footer-contact p {
-  margin-bottom: 10px;
   color: #bdc3c7;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
-.footer-copy {
-  grid-column: 1 / -1;
+
+.footer-bottom {
+  background: #162029;
   text-align: center;
-  padding-top: 30px;
-  border-top: 1px solid #34495e;
+  padding: 15px;
   color: #95a5a6;
-  margin-top: 30px;
+  font-size: 0.85rem;
 }
 
-/* Map Container */
+
 .map-container {
   margin: 40px 0;
   border-radius: 20px;
@@ -750,7 +941,7 @@ footer {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -809,12 +1000,12 @@ footer {
   }
 }
 
-/* Smooth scrolling */
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Loading animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -828,7 +1019,7 @@ body {
   animation: fadeIn 0.8s ease-in;
 }
 
-/* Additional styling for better visual appeal */
+
 .btn-secondary {
   background: transparent;
   border: 2px solid #3498db;
@@ -840,7 +1031,7 @@ body {
   color: white;
 }
 
-/* Subtle animations */
+
 .card,
 .package,
 .testimonial {
@@ -859,7 +1050,6 @@ body {
   }
 }
 
-/* Stagger animation delays */
 .card:nth-child(1) {
   animation-delay: 0.1s;
 }

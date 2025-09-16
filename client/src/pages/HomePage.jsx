@@ -513,6 +513,7 @@ function HomePage() {
             ))}
           </ul>
           <a href={packages.kids.link} className="btn">
+            <FaWhatsapp size={22} />
             Book WhatsApp
           </a>
         </div>
@@ -529,7 +530,8 @@ function HomePage() {
                   <li key={j}>{item}</li>
                 ))}
               </ul>
-              <a href={pkg.link} className="btn">
+              <a href={packages.kids.link} className="btn">
+                <FaWhatsapp size={22} />
                 Book WhatsApp
               </a>
             </div>
@@ -549,7 +551,8 @@ function HomePage() {
                   <li key={j}>{item}</li>
                 ))}
               </ul>
-              <a href={pkg.link} className="btn">
+              <a href={packages.kids.link} className="btn">
+                <FaWhatsapp size={22}/>
                 Book WhatsApp
               </a>
             </div>
@@ -558,7 +561,10 @@ function HomePage() {
         <div className="contact-note">
           Need a custom package or have questions about our pricing?
         </div>
-        <button className="btn">Contact Us via WhatsApp</button>
+        <button className="btn">
+          <FaWhatsapp size={22} />
+          Contact Us via WhatsApp
+        </button>
       </section>
 
       {/* Portfolio */}
@@ -671,6 +677,7 @@ function HomePage() {
               rel="noopener noreferrer"
               className="whatsapp-btn"
             >
+              <FaWhatsapp size={22}/>
               Chat on WhatsApp
             </a>
           </div>
